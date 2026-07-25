@@ -23,10 +23,6 @@ def format_data(account):
     country = account["country"]
     return f"{name}, a {description}, from {country}"
 
-#makin the accout at position become the next account at position a
-
-#clear the screen between rounds
-
 choice_a = random_account()
 
 while game_over == False:
