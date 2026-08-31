@@ -14,4 +14,4 @@ for i in bidder:
         name = i
         benchmarkamt = int(bidder[i])
 
-print(f"{name} won the bid with the highest bid of {benchmarkamt}")
+print(f"{name} won the bidding with the highest bid of {benchmarkamt}")
