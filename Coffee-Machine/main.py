@@ -1,7 +1,8 @@
 from data import menu, resources
 profit = 0
-dataToIgnore = ["water", "milk", "coffee", "report", "off"]
+dataToIgnore = ["cappuccino", "latte", "espresso", "report", "off"]
 amount = 0
+a = True
 
 def process_coins():
     print("Please insert coins.")
@@ -19,8 +20,7 @@ def is_transaction_successful(payment, cost):
 
 while True:
     coffee = input("What would you like? (espresso/latte/cappuccino): ").lower()
-    amount = menu[coffee]["cost"]
-
+    
     if coffee == "off":
         print("Turning off the coffee machine. Goodbye!")
         break
@@ -39,15 +39,19 @@ while True:
         ingredients = drink["ingredients"]      #{all ingredients for the selected drink}
         for ingredient in ingredients:
             if ingredients[ingredient] > resources[ingredient]:
+                a = False
                 print(f"Sorry, there is not enough {ingredient}.")
                 break
-
-    else:
-        print(f"The cost of {coffee} is ${amount}.")
-        payment = process_coins()
-        if is_transaction_successful(payment, amount):
-            change = round(payment - amount, 2)
-            print(f"Here is ${change} in change.")
-            profit += amount
-        else:
-            print("Sorry, that's not enough money. Money refunded.")
+        if a == True:
+            amount = menu[coffee]["cost"]
+            print(f"The cost of {coffee} is ${amount}.")
+            payment = process_coins()
+            if is_transaction_successful(payment, amount):
+                change = round(payment - amount, 2)
+                print(f"Here is ${change} in change.")
+                profit += amount
+                for ingredient in ingredients:
+                    resources[ingredient] -= ingredients[ingredient]
+                print(f"Here is your {coffee}. Enjoy!")
+            else:
+                print("Sorry, that's not enough money. Money refunded.")
